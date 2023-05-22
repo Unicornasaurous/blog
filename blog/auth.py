@@ -66,7 +66,7 @@ def login():
     return render_template("auth/login.html")
 
 
-@bp.before_app_request()
+@bp.before_app_request
 def load_logged_in_user():
     """This will run before every request made to the app
     is handled. Here, we get our user's ID from the session, which is
