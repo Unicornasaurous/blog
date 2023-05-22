@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% block title %}{% endblock %} - BLOG</title>
+    </head>
+    <body>
+        <nav id="navbar">
+            {% if g.user %}
+                <div>{{ g.user['username'] }}</div>
+                <div><a href="{{ url_for('auth.logout') }}"">Logout</a></div>
+            {% else %}
+                <div><a href="{{ url_for('auth.login') }}">Login</a></div>
+                <div><a href="{{ url_for('auth.register') }}">Register</a></div>
+            {% endif %}   
+        </nav>
+        <header>{% block header %}{% endblock %}</header>
+
+        {% block content %}{% endblock %}
+    </body>
+</html>
