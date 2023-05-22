@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends 'base.html' %}
 
-    </head>
-    <body>
-        <h1>
-            Login
-        </h1>
-    </body>
-</html>
+{% block header %} 
+<h1>
+    {% block title %}Login{% endblock %}
+</h1>
+{% endblock %}

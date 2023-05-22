@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html>
-    <head>
+{% extends 'base.html' %}
 
-    </head>
-    <body>
-        <h1>
-            Register
-        </h1>
-    </body>
-</html>
+{% block header %} 
+<h1>
+    {% block title %}Register{% endblock %}
+</h1>
+{% endblock %}

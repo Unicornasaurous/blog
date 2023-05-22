@@ -1,12 +1,7 @@
-<!DOCTYPE html>
+{% extends 'base.html' %}
 
-<html>
-    <head>
-
-    </head>
-    <body>
-        <h1>
-            Index
-        </h1>
-    </body>
-</html>
+{% block header %} 
+<h1>
+    {% block title %}Index{% endblock %}
+</h1>
+{% endblock %}
