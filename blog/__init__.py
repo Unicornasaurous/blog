@@ -9,7 +9,7 @@ def create_app(test_config = None):
     #configure the app 
     app.config.from_mapping(
         SECRET_KEY='dev',
-        DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite')
+        DATABASE=os.path.join(app.instance_path, 'blog.sqlite') #join 
     )
 
     #if we aren't testing, then load app instance config file
