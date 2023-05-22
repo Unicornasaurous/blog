@@ -1,2 +1,2 @@
 # blog
-A blog website dedicated to publicly exposing my projects
+A blog website dedicated to publicly exposing my tech projects and thoughts
