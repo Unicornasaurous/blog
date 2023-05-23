@@ -27,7 +27,7 @@ def create_app(test_config = None):
 
     #route to main blog page - returns the index html 
     @app.route('/blog', methods = ['GET', 'POST'])
-    def blog():
+    def index():
         return render_template('blog/index.html')
 
     from . import db
