@@ -25,15 +25,13 @@ def create_app(test_config = None):
     except OSError:
         pass
 
-    #route to main blog page - returns the index html 
-    @app.route('/blog', methods = ['GET', 'POST'])
-    def index():
-        return render_template('blog/index.html')
-
     from . import db
     db.init_app(app)
 
     from . import auth
     app.register_blueprint(auth.bp)
+
+    from . import blog
+    app.register_blueprint(blog.bp)
 
     return app
