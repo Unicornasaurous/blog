@@ -27,12 +27,13 @@ def register():
 
         if error is None:
             try:
-                db.execute("INSERT INTO user (username, password) VALUES (?, ?)",
-                (username, generate_password_hash(password)))
+                db.execute("INSERT INTO user (username, password, admin) VALUES (?, ?, ?)",
+                (username, generate_password_hash(password), 0),)
                 db.commit()
-                return redirect(url_for())
+                return redirect(url_for("auth.login"))
             except db.IntegrityError:
                 error=f"User '{username}' already exists"
+                print("Database integrity error")
             else:
                 return redirect(url_for("auth.login"))
         
@@ -47,12 +48,14 @@ def login():
         password = request.form['password']
         db = get_db()
         error = None
-        user = db.execute("SELECT * FROM user WHERE username = ?", (username)).fetchone()
+        user = db.execute("SELECT * FROM user WHERE username = ?", (username,)).fetchone()
 
         if user is None:
             error="Invalid username"
+            print("Invalid username")
         elif not check_password_hash(user['password'], password):
             error ="Invalid password"
+            print("Invalid password")
         else:
             #Store our user's ID in the session, which gets sent to 
             #web browser as a cookie to be stored and sent back with each
@@ -60,6 +63,7 @@ def login():
             session.clear()
             session['user_id'] = user['id']
             return redirect(url_for('index'))
+
 
         flash(error)
     
@@ -76,12 +80,13 @@ def load_logged_in_user():
     then store that info as a dictionary inside of our 'g' object. 
     """
     user_id = session.get('user_id')
+    db = get_db()
 
     if user_id is None:
         g.user = None
     else:
         g.user = db.execute(
-            "SELECT * FROM user WHERE user = ?", (user_id)
+            "SELECT * FROM user WHERE id = ?", (user_id,)
         ).fetchone()
 
 @bp.route('/logout')
