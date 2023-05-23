@@ -5,3 +5,14 @@
     {% block title %}Login{% endblock %}
 </h1>
 {% endblock %}
+
+{% block content %}
+<form method="POST">
+    <label for ="username">Username</label>
+    <input type="text" id="username" name="username" required>
+    <label for="password">Password</label>
+    <input type="password" name="password" id="password" required>
+    <input type="submit" value="Submit">
+</form>
+<span>{{ get_flashed_messages(error)[0] }}</span>
+{% endblock %}
