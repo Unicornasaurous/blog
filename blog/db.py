@@ -38,9 +38,24 @@ def init_db():
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
 
+@click.command('admin')
+@click.option('--user', help="The user desired to be admin")
 def make_admin(user):
-    #TO-DO: create function that sets user's admin column to 1
-    pass
+    """
+    Function is a callback for CLI command. Function marks the admin column
+    for a specified user as '1' to indicate that that user is an admin
+    """
+    db = get_db()
+    #get user row
+    u = db.execute("SELECT * FROM user WHERE username = ?", (user,)).fetchone()
+    #check if user exists
+    if u is not None:
+        db.execute("UPDATE user SET admin = 1 WHERE username = ?", (user,))
+        db.commit()
+        click.echo(f"{user} has been made an admin")
+    else:
+        click.echo(f"{user} doesn't exist!")
+
 
 @click.command('init-db')
 def init_db_command():
@@ -65,3 +80,5 @@ def init_app(app):
     app.teardown_appcontext(close_db)
     #Registers init_db_command as a flask command
     app.cli.add_command(init_db_command)
+    #Register admin command as a flask command 
+    app.cli.add_command(make_admin)
