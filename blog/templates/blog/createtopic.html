@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %} 
+<h1>
+    {% block title %}Create Topic{% endblock %}
+</h1>
+{% endblock %}
+
+{% block content %}
+    {% if g.user['admin'] == 1 %}
+        <form method="POST">
+            <label for="topic">Topic Title</label>
+            <input type="text" name="topic" id="topic">
+            <input type="submit">
+        </form>
+    {% endif %}
+{% endblock %}
