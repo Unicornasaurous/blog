@@ -1,0 +1,20 @@
+.list-container {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+
+.topic {
+    display: flex;
+    flex-direction: row;
+    border-color:black;
+    border-style:solid;
+}
+.edit-div {
+    flex-grow: .5;
+}
+
+.topic-title {
+    flex-grow: 9.5;
+
+}
