@@ -12,9 +12,26 @@
             <input type="submit" value="Create Topic", name="submitbutton">
         </form>
     {% endif %}
-    {% for topic in topics %}
-        <a href="{{ url_for('blog.topic', topic_title=topic['title']) }}">
-            <p>{{ topic['title'] }}</p>
-        </a>
-    {% endfor %}
+    <div class="list-container">
+        {% for topic in topics %}
+            <div class="topic">
+                <a class="topic-title" href="{{ url_for('blog.topic', topic_title=topic['title']) }}">
+                    <div>
+                        <p >{{ topic['title'] }}</p>
+                    </div>
+                </a>
+                {% if g.user['admin'] == 1 %}
+                    <div class="edit-div">
+                        <a href="">
+                            <p>Edit</p>
+                        </a>
+                        <a href="">
+                            <p>Delete</p>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
