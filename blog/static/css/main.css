@@ -1,10 +1,10 @@
-.list-container {
+.item-container {
     display: flex;
     flex-direction: column;
     row-gap: 10px;
 }
 
-.topic {
+.blog-item {
     display: flex;
     flex-direction: row;
     border-color:black;
@@ -14,7 +14,7 @@
     flex-grow: .5;
 }
 
-.topic-title {
+.item-title {
     flex-grow: 9.5;
 
 }
