@@ -19,5 +19,7 @@ CREATE TABLE post (
 );
 
 CREATE TABLE topic (
-  title TEXT NOT NULL
-)
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  desc TEXT NOT NULL
+);
