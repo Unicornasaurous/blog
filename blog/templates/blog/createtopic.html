@@ -2,15 +2,31 @@
 
 {% block header %} 
 <h1>
-    {% block title %}Create Topic{% endblock %}
+    {% block title %}
+        {% if topic %}
+            Edit Topic
+        {% else %}
+            Create Topic
+        {% endif %}
+    {% endblock %}
 </h1>
 {% endblock %}
 
 {% block content %}
-    {% if g.user['admin'] == 1 %}
+    {% if g.user['admin'] == 1 and not topic %}
         <form method="POST">
-            <label for="topic">Topic Title</label>
-            <input type="text" name="topic" id="topic">
+            <label for="title">Topic Title</label>
+            <input type="text" name="title" id="title">
+            <label for="desc">Description</label>
+            <textarea id="desc" name="desc" placeholder="Description" maxlength="250"></textarea>
+            <input type="submit">
+        </form>
+    {% elif g.user['admin'] == 1 and topic %}
+        <form method="POST">
+            <label for="title">Topic Title</label>
+            <input type="text" name="title" id="title" value="{{ topic['title'] }}">
+            <label for="desc">Description</label>
+            <textarea id="desc" name="desc" maxlength="250" placeholder="Description">{{ topic['desc'] }}</textarea>
             <input type="submit">
         </form>
     {% endif %}
