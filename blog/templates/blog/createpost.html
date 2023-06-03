@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block header %} 
+<h1>
+    {% block title %}
+        {% if topic %}
+            Edit Post
+        {% else %}
+            Create Post
+        {% endif %}
+    {% endblock %}
+</h1>
+{% endblock %}
+
+{% block content %}
+    {% if g.user['admin'] == 1 and not post %}
+        <form method="POST">
+            <label for="title">Post Title</label>
+            <input type="text" name="title" id="title">
+            <label for="body">Body</label>
+            <textarea id="body" name="body" placeholder="Body"></textarea>
+            <input type="submit">
+        </form>
+    {% elif g.user['admin'] == 1 and post %}
+        <form method="POST">
+            <label for="title">Topic Title</label>
+            <input type="text" name="title" id="title" value="{{ post['title'] }}">
+            <label for="body">Body</label>
+            <textarea id="body" name="body" placeholder="Body">{{ post['body'] }}</textarea>
+            <input type="submit">
+        </form>
+    {% endif %}
+{% endblock %}
