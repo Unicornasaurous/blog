@@ -94,6 +94,15 @@ def logout():
     session.clear()
     return redirect(url_for('blog.index'))
 
+@bp.route('/admin-message')
+def admin_message():
+    """
+    A message displayed to the user when they have attempted to access a view 
+    without administrator privileges.
+    """
+    return "You thought you were slick, huh? Gotta be an admin to do this."
+
+
 def login_required(view):
     """
     This can be used as a decorator for views to require that the user 
@@ -106,6 +115,21 @@ def login_required(view):
         if g.user is None:
             return redirect(url_for('auth.login'))
 
+        return view(**kwargs)
+
+    return wrapped_view
+
+def admin_required(view):
+    """
+    Can be used as a decorator for views to require that the user be logged in 
+    as an administrator in order to access the view. 
+    """
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        if g.user is None:
+            return redirect(url_for('auth.login'))
+        elif g.user['admin'] != 1:
+            return redirect(url_for('auth.admin_message'))
         return view(**kwargs)
 
     return wrapped_view
